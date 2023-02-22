@@ -78,7 +78,7 @@ class _BookslistPageState extends State<BookslistPage> {
                         "${aa[index]["cat_nom"]}",
                         "${aa[index]["nom_auteur"]} ${aa[index]["prenom_auteur"]}",
                         int.parse("${aa[index]["num_page"]}"),
-                        "${aa[index]["description"]}"));
+                        "${aa[index]["description"]}",int.parse("${aa[index]["quant"]}")));
               },
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 5),

@@ -381,7 +381,7 @@ class _HomePagestate extends State<HomePage> {
                                                     "${popbkslist[i]["nom_auteur"]} ${popbkslist[i]["prenom_auteur"]}",
                                                     int.parse(
                                                         "${popbkslist[i]["num_page"]}"),
-                                                    "${popbkslist[i]["description"]}"));
+                                                    "${popbkslist[i]["description"]}",int.parse("${popbkslist[i]["quant"]}")));
                                           }),
                                         ),
                                     ],
@@ -452,7 +452,8 @@ class _HomePagestate extends State<HomePage> {
                                                     "${newbkslist[i]["nom_auteur"]} ${newbkslist[i]["prenom_auteur"]}",
                                                     int.parse(
                                                         "${newbkslist[i]["num_page"]}"),
-                                                    "${newbkslist[i]["description"]}"));
+                                                    "${newbkslist[i]["description"]}",int.parse(
+                                                        "${newbkslist[i]["quant"]}")));
                                           },
                                           child: Container(
                                             margin: EdgeInsets.only(left: 10),
@@ -579,7 +580,8 @@ class _HomePagestate extends State<HomePage> {
                                         "${_books[index]['nom_auteur']}  ${_books[index]['prenom_auteur']}",
                                         int.parse(
                                             "${_books[index]['num_page']}"),
-                                        "${_books[index]['description']}"));
+                                        "${_books[index]['description']}",int.parse(
+                                                        "${_books[index]["quant"]}")));
                               },
                               child: Row(
                                 children: [

@@ -125,7 +125,8 @@ class _Pop_bookState extends State<Pop_book>
                                   "${popbooks[index]["cat_nom"]}",
                                   "${popbooks[index]["nom_auteur"]} ${popbooks[index]["prenom_auteur"]}",
                                   int.parse("${popbooks[index]["num_page"]}"),
-                                  "${popbooks[index]["description"]}"));
+                                  "${popbooks[index]["description"]}",
+                                  int.parse("${popbooks[index]["quant"]}")));
                         },
                         child: Container(
                           width: 190,

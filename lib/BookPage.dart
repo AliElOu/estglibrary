@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/Customnavbar.dart';
 
@@ -13,7 +14,6 @@ class _BookPageState extends State<BookPage> {
   Widget build(BuildContext context) {
     dynamic book = ModalRoute.of(context)!.settings.arguments;
     return Scaffold(
-      // bottomNavigationBar: Customnavbar(),
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -115,20 +115,6 @@ class _BookPageState extends State<BookPage> {
                           SizedBox(
                             height: 15,
                           ),
-
-                          /*RatingBar.builder(
-                              itemBuilder: (context, _) => Icon(
-                                    Icons.star,
-                                    color: Colors.amber,
-                                  ),
-                              direction: Axis.horizontal,
-                              itemSize: 25,
-                              allowHalfRating: true,
-                              itemCount: 5,
-                              unratedColor: Colors.white,
-                              initialRating: 3,
-                              minRating: 1,
-                              updateOnDrag: false),*/
                           SizedBox(
                             height: 15,
                           ),
@@ -155,7 +141,19 @@ class _BookPageState extends State<BookPage> {
                               customBorder: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              onTap: () {},
+                              onTap: () {
+                                if (book.qt == 0) {
+                                  AwesomeDialog(
+                                          context: context,
+                                          title: "Error !",
+                                          dialogType: DialogType.warning,
+                                          btnOkColor: Colors.amber,
+                                          btnOkOnPress: () {},
+                                          desc:
+                                              "ce livre n'est pas en stock en temps réel !")
+                                      .show();
+                                } else {}
+                              },
                               child: Container(
                                 padding: EdgeInsets.all(10),
                                 child: Row(

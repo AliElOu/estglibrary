@@ -11,6 +11,7 @@ class BookArguments {
   final String actor;
   final int nump;
   final String description;
+  final int qt;
 
   BookArguments(
     this.title,
@@ -19,6 +20,7 @@ class BookArguments {
     this.actor,
     this.nump,
     this.description,
+    this.qt
   );
 }
 

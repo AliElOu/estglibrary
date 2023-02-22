@@ -125,7 +125,8 @@ class _New_booksState extends State<New_books>
                                   "${newbooks[index]["cat_nom"]}",
                                   "${newbooks[index]["nom_auteur"]} ${newbooks[index]["prenom_auteur"]}",
                                   int.parse("${newbooks[index]["num_page"]}"),
-                                  "${newbooks[index]["description"]}"));
+                                  "${newbooks[index]["description"]}",int.parse(
+                                                        "${newbooks[index]["quant"]}")));
                         },
                         child: Container(
                           width: 190,
