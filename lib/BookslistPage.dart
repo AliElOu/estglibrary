@@ -5,6 +5,8 @@ import 'package:myapp/Customnavbar.dart';
 import 'package:myapp/Getdata.dart';
 import 'package:http/http.dart' as http;
 
+import 'main.dart';
+
 List aa = [];
 
 class BookslistPage extends StatefulWidget {
@@ -70,16 +72,50 @@ class _BookslistPageState extends State<BookslistPage> {
           itemCount: aa.length,
           itemBuilder: (_, index) {
             return GestureDetector(
-              onTap: () {
+              onTap: (() async {
+                bool? like;
+                try {
+                  showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (context) {
+                        return Center(child: CircularProgressIndicator());
+                      });
+                  var url =
+                      'https://intertarsal-surface.000webhostapp.com/favoris/checkFav.php';
+                  var response = await http.post(Uri.parse(url), body: {
+                    'bookisbn3': "${aa[index]["ISBN"]}",
+                    'userid3': prefs.getString("CNE"),
+                  });
+
+                  if (response.statusCode == 200) {
+                    Navigator.of(context).pop();
+                    if (response.body == "Y") {
+                      setState(() {
+                        like = true;
+                      });
+                    } else {
+                      like = false;
+
+                      setState(() {});
+                    }
+                  }
+                } catch (e) {
+                  print("error!");
+                }
+
                 Navigator.pushNamed(context, 'bookpage',
                     arguments: BookArguments(
+                        "${aa[index]["ISBN"]}",
                         "${aa[index]["nom_livre"]}",
                         "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${aa[index]["image_livre"]}",
                         "${aa[index]["cat_nom"]}",
                         "${aa[index]["nom_auteur"]} ${aa[index]["prenom_auteur"]}",
                         int.parse("${aa[index]["num_page"]}"),
-                        "${aa[index]["description"]}",int.parse("${aa[index]["quant"]}")));
-              },
+                        "${aa[index]["description"]}",
+                        int.parse("${aa[index]["quant"]}"),
+                        like!));
+              }),
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 5),
                 width: 190,

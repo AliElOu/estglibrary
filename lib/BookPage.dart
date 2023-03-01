@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/Customnavbar.dart';
+import 'package:http/http.dart' as http;
+import 'package:myapp/main.dart';
+import 'package:myapp/Getdata.dart';
 
-bool like = false;
 String a = "", b = "";
 
 class BookPage extends StatefulWidget {
@@ -11,8 +15,10 @@ class BookPage extends StatefulWidget {
 }
 
 class _BookPageState extends State<BookPage> {
+  @override
   Widget build(BuildContext context) {
     dynamic book = ModalRoute.of(context)!.settings.arguments;
+    bool like = book.ck;
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(
@@ -46,7 +52,72 @@ class _BookPageState extends State<BookPage> {
                               color: Colors.white,
                             ),
                           ),
-                          Like(),
+                          GestureDetector(
+                            child: like == false
+                                ? Icon(
+                                    Icons.favorite_border,
+                                    size: 35,
+                                    color: Colors.white,
+                                  )
+                                : Icon(
+                                    Icons.favorite,
+                                    size: 35,
+                                    color: Colors.red,
+                                  ),
+                            onTap: (() async {
+                              if (like == false) {
+                                try {
+                                  showDialog(
+                                      barrierDismissible: false,
+                                      context: context,
+                                      builder: (context) {
+                                        return Center(
+                                            child: CircularProgressIndicator());
+                                      });
+                                  var url =
+                                      'https://intertarsal-surface.000webhostapp.com/favoris/insertFav.php';
+                                  var response =
+                                      await http.post(Uri.parse(url), body: {
+                                    'bookisbn': book.isbn,
+                                    'userid': prefs.getString("CNE"),
+                                  });
+                                  if (response.statusCode == 200) {
+                                    Navigator.of(context).pop();
+                                    Navigator.pop(context);
+                                    var red = jsonDecode(response.body);
+                                    print(red);
+                                  }
+                                } catch (e) {}
+                              } else {
+                                try {
+                                  showDialog(
+                                      barrierDismissible: false,
+                                      context: context,
+                                      builder: (context) {
+                                        return Center(
+                                            child: CircularProgressIndicator());
+                                      });
+                                  var url =
+                                      'https://intertarsal-surface.000webhostapp.com/favoris/deleteFav.php';
+                                  var response =
+                                      await http.post(Uri.parse(url), body: {
+                                    'bookisbn2': book.isbn,
+                                    'userid2': prefs.getString("CNE"),
+                                  });
+                                  if (response.statusCode == 200) {
+                                    Navigator.of(context).pop();
+                                    Navigator.pop(context);
+                                    var red = jsonDecode(response.body);
+                                    print(red);
+                                  }
+                                } catch (e) {}
+                              }
+
+                              setState(() {
+                                like = !like;
+                              });
+                            }),
+                          ),
                         ],
                       ),
                     ),
@@ -190,7 +261,7 @@ class _BookPageState extends State<BookPage> {
     );
   }
 }
-
+/*
 class Like extends StatefulWidget {
   const Like({super.key});
 
@@ -201,6 +272,9 @@ class Like extends StatefulWidget {
 class _LikeState extends State<Like> {
   @override
   Widget build(BuildContext context) {
+    dynamic book = ModalRoute.of(context)!.settings.arguments;
+    like = book.ck;
+
     return GestureDetector(
       child: like == false
           ? Icon(
@@ -213,7 +287,35 @@ class _LikeState extends State<Like> {
               size: 35,
               color: Colors.red,
             ),
-      onTap: (() {
+      onTap: (() async {
+        if (like == false) {
+          try {
+            var url =
+                'https://intertarsal-surface.000webhostapp.com/favoris/insertFav.php';
+            var response = await http.post(Uri.parse(url), body: {
+              'bookisbn': book.isbn,
+              'userid': prefs.getString("CNE"),
+            });
+            if (response.statusCode == 200) {
+              var red = jsonDecode(response.body);
+              print(red);
+            }
+          } catch (e) {}
+        } else {
+          try {
+            var url =
+                'https://intertarsal-surface.000webhostapp.com/favoris/deleteFav.php';
+            var response = await http.post(Uri.parse(url), body: {
+              'bookisbn2': book.isbn,
+              'userid2': prefs.getString("CNE"),
+            });
+            if (response.statusCode == 200) {
+              var red = jsonDecode(response.body);
+              print(red);
+            }
+          } catch (e) {}
+        }
+
         setState(() {
           like = !like;
         });
@@ -221,3 +323,4 @@ class _LikeState extends State<Like> {
     );
   }
 }
+*/

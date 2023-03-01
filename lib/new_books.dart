@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import 'main.dart';
+
 class New_books extends StatefulWidget {
   const New_books({super.key});
 
@@ -117,17 +119,58 @@ class _New_booksState extends State<New_books>
                     itemCount: newbooks.length,
                     itemBuilder: (_, index) {
                       return GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, 'bookpage',
-                              arguments: BookArguments(
-                                  "${newbooks[index]["nom_livre"]}",
-                                  "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${newbooks[index]["image_livre"]}",
-                                  "${newbooks[index]["cat_nom"]}",
-                                  "${newbooks[index]["nom_auteur"]} ${newbooks[index]["prenom_auteur"]}",
-                                  int.parse("${newbooks[index]["num_page"]}"),
-                                  "${newbooks[index]["description"]}",int.parse(
-                                                        "${newbooks[index]["quant"]}")));
-                        },
+                        onTap: (() async {
+                                            bool? like;
+                                            try {
+                                              showDialog(
+                                                  barrierDismissible: false,
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return Center(
+                                                        child:
+                                                            CircularProgressIndicator());
+                                                  });
+                                              var url =
+                                                  'https://intertarsal-surface.000webhostapp.com/favoris/checkFav.php';
+                                              var response = await http
+                                                  .post(Uri.parse(url), body: {
+                                                'bookisbn3':
+                                                    "${newbooks[index]["ISBN"]}",
+                                                'userid3':
+                                                    prefs.getString("CNE"),
+                                              });
+
+                                              if (response.statusCode == 200) {
+                                                Navigator.of(context).pop();
+                                                if (response.body == "Y") {
+                                                  setState(() {
+                                                    like = true;
+                                                  });
+                                                } else {
+                                                  like = false;
+
+                                                  setState(() {});
+                                                }
+                                              }
+                                            } catch (e) {
+                                              print("error!");
+                                            }
+
+                                            Navigator.pushNamed(
+                                                context, 'bookpage',
+                                                arguments: BookArguments(
+                                                    "${newbooks[index]["ISBN"]}",
+                                                    "${newbooks[index]["nom_livre"]}",
+                                                    "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${newbooks[index]["image_livre"]}",
+                                                    "${newbooks[index]["cat_nom"]}",
+                                                    "${newbooks[index]["nom_auteur"]} ${newbooks[index]["prenom_auteur"]}",
+                                                    int.parse(
+                                                        "${newbooks[index]["num_page"]}"),
+                                                    "${newbooks[index]["description"]}",
+                                                    int.parse(
+                                                        "${newbooks[index]["quant"]}"),
+                                                    like!));
+                                          }),
                         child: Container(
                           width: 190,
                           height: 295,

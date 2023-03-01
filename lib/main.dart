@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:myapp/BookPage.dart';
 import 'package:myapp/BookslistPage.dart';
 import 'package:myapp/CategoryPage.dart';
-import 'package:myapp/Favoris.dart';
+import 'package:myapp/profile/Favoris.dart';
 import 'package:myapp/Home_Screen.dart';
 import 'package:myapp/LoginPage.dart';
 import 'package:myapp/OnboardingPage.dart';
+import 'package:myapp/profile/change_password.dart';
 import 'package:myapp/list_demandes.dart';
 import 'package:myapp/new_books.dart';
 import 'package:myapp/pop_book.dart';
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
         "new_book": (context) => const New_books(),
         "demandes": (context) => Demandes(),
         "favoris": (context) => Favoris(),
+        "changepass": (context) => Change_password(),
       },
     );
   }

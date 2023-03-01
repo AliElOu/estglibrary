@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import 'main.dart';
+
 class Pop_book extends StatefulWidget {
   const Pop_book({super.key});
 
@@ -61,6 +63,8 @@ class _Pop_bookState extends State<Pop_book>
 
   @override
   Widget build(BuildContext context) {
+    
+
     dynamic st = ModalRoute.of(context)!.settings.arguments;
     return Scaffold(
         appBar: AppBar(
@@ -117,17 +121,58 @@ class _Pop_bookState extends State<Pop_book>
                     itemCount: popbooks.length,
                     itemBuilder: (_, index) {
                       return GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, 'bookpage',
-                              arguments: BookArguments(
-                                  "${popbooks[index]["nom_livre"]}",
-                                  "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${popbooks[index]["image_livre"]}",
-                                  "${popbooks[index]["cat_nom"]}",
-                                  "${popbooks[index]["nom_auteur"]} ${popbooks[index]["prenom_auteur"]}",
-                                  int.parse("${popbooks[index]["num_page"]}"),
-                                  "${popbooks[index]["description"]}",
-                                  int.parse("${popbooks[index]["quant"]}")));
-                        },
+                        onTap: (() async {
+                                            bool? like;
+                                            try {
+                                              showDialog(
+                                                  barrierDismissible: false,
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return Center(
+                                                        child:
+                                                            CircularProgressIndicator());
+                                                  });
+                                              var url =
+                                                  'https://intertarsal-surface.000webhostapp.com/favoris/checkFav.php';
+                                              var response = await http
+                                                  .post(Uri.parse(url), body: {
+                                                'bookisbn3':
+                                                    "${popbooks[index]["ISBN"]}",
+                                                'userid3':
+                                                    prefs.getString("CNE"),
+                                              });
+
+                                              if (response.statusCode == 200) {
+                                                Navigator.of(context).pop();
+                                                if (response.body == "Y") {
+                                                  setState(() {
+                                                    like = true;
+                                                  });
+                                                } else {
+                                                  like = false;
+
+                                                  setState(() {});
+                                                }
+                                              }
+                                            } catch (e) {
+                                              print("error!");
+                                            }
+
+                                            Navigator.pushNamed(
+                                                context, 'bookpage',
+                                                arguments: BookArguments(
+                                                    "${popbooks[index]["ISBN"]}",
+                                                    "${popbooks[index]["nom_livre"]}",
+                                                    "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${popbooks[index]["image_livre"]}",
+                                                    "${popbooks[index]["cat_nom"]}",
+                                                    "${popbooks[index]["nom_auteur"]} ${popbooks[index]["prenom_auteur"]}",
+                                                    int.parse(
+                                                        "${popbooks[index]["num_page"]}"),
+                                                    "${popbooks[index]["description"]}",
+                                                    int.parse(
+                                                        "${popbooks[index]["quant"]}"),
+                                                    like!));
+                                          }),
                         child: Container(
                           width: 190,
                           height: 295,

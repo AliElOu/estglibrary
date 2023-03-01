@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:http/http.dart' as http;
 
 class BookArguments {
+  final String isbn;
   final String title;
   final String image;
   final String categorie;
@@ -12,15 +13,17 @@ class BookArguments {
   final int nump;
   final String description;
   final int qt;
+  final bool ck;
 
   BookArguments(
+    this.isbn,
     this.title,
     this.image,
     this.categorie,
     this.actor,
     this.nump,
     this.description,
-    this.qt
+    this.qt,this.ck,
   );
 }
 

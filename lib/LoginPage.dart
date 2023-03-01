@@ -340,11 +340,13 @@ class _LoginScreenState extends State<LoginScreen> {
             prefs.setString("CNE", "${userdata[0]["CNE"]}");
             prefs.setString("nom", "${userdata[0]["nom"]}");
             prefs.setString("prenom", "${userdata[0]["prenom"]}");
-            prefs.setString("filiere", "${userdata[0]["filiere"]}");
+            prefs.setString("filiere", "${userdata[0]["nom_fil"]}");
             prefs.setString("email", "${userdata[0]["email"]}");
             prefs.setString("status_cmpt", "${userdata[0]["status_cmpt"]}");
+            prefs.setString("pass", "${userdata[0]["pass"]}");
 
-            Navigator.pushNamed(context, '/');
+            Navigator.of(context)
+                .pushNamedAndRemoveUntil('/', (route) => false);
           } else {
             AwesomeDialog(
               context: context,

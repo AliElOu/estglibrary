@@ -154,7 +154,9 @@ class ProfilePage extends StatelessWidget {
             ProfileMenu(
               text: "Changer mot de passe",
               icon: Icons.password_rounded,
-              press: (() {}),
+              press: (() {
+                Navigator.pushNamed(context, 'changepass');
+              }),
             ),
             ProfileMenu(
               text: "Favoris",

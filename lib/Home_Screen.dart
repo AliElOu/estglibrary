@@ -371,17 +371,57 @@ class _HomePagestate extends State<HomePage> {
                                               ),
                                             ),
                                           ),
-                                          onTap: (() {
+                                          onTap: (() async {
+                                            bool? like;
+                                            try {
+                                              showDialog(
+                                                  barrierDismissible: false,
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return Center(
+                                                        child:
+                                                            CircularProgressIndicator());
+                                                  });
+                                              var url =
+                                                  'https://intertarsal-surface.000webhostapp.com/favoris/checkFav.php';
+                                              var response = await http
+                                                  .post(Uri.parse(url), body: {
+                                                'bookisbn3':
+                                                    "${popbkslist[i]["ISBN"]}",
+                                                'userid3':
+                                                    prefs.getString("CNE"),
+                                              });
+
+                                              if (response.statusCode == 200) {
+                                                Navigator.of(context).pop();
+                                                if (response.body == "Y") {
+                                                  setState(() {
+                                                    like = true;
+                                                  });
+                                                } else {
+                                                  like = false;
+
+                                                  setState(() {});
+                                                }
+                                              }
+                                            } catch (e) {
+                                              print("error!");
+                                            }
+
                                             Navigator.pushNamed(
                                                 context, 'bookpage',
                                                 arguments: BookArguments(
+                                                    "${popbkslist[i]["ISBN"]}",
                                                     "${popbkslist[i]["nom_livre"]}",
                                                     "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${popbkslist[i]["image_livre"]}",
                                                     "${popbkslist[i]["cat_nom"]}",
                                                     "${popbkslist[i]["nom_auteur"]} ${popbkslist[i]["prenom_auteur"]}",
                                                     int.parse(
                                                         "${popbkslist[i]["num_page"]}"),
-                                                    "${popbkslist[i]["description"]}",int.parse("${popbkslist[i]["quant"]}")));
+                                                    "${popbkslist[i]["description"]}",
+                                                    int.parse(
+                                                        "${popbkslist[i]["quant"]}"),
+                                                    like!));
                                           }),
                                         ),
                                     ],
@@ -442,18 +482,57 @@ class _HomePagestate extends State<HomePage> {
                                           i < newbkslist.length;
                                           i++)
                                         InkWell(
-                                          onTap: () {
+                                          onTap: () async {
+                                            bool? like;
+                                            try {
+                                              showDialog(
+                                                  barrierDismissible: false,
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return Center(
+                                                        child:
+                                                            CircularProgressIndicator());
+                                                  });
+                                              var url =
+                                                  'https://intertarsal-surface.000webhostapp.com/favoris/checkFav.php';
+                                              var response = await http
+                                                  .post(Uri.parse(url), body: {
+                                                'bookisbn3':
+                                                    "${newbkslist[i]["ISBN"]}",
+                                                'userid3':
+                                                    prefs.getString("CNE"),
+                                              });
+
+                                              if (response.statusCode == 200) {
+                                                Navigator.of(context).pop();
+                                                if (response.body == "Y") {
+                                                  setState(() {
+                                                    like = true;
+                                                  });
+                                                } else {
+                                                  like = false;
+
+                                                  setState(() {});
+                                                }
+                                              }
+                                            } catch (e) {
+                                              print("error!");
+                                            }
+
                                             Navigator.pushNamed(
                                                 context, 'bookpage',
                                                 arguments: BookArguments(
+                                                    "${newbkslist[i]["ISBN"]}",
                                                     "${newbkslist[i]["nom_livre"]}",
                                                     "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${newbkslist[i]["image_livre"]}",
                                                     "${newbkslist[i]["cat_nom"]}",
                                                     "${newbkslist[i]["nom_auteur"]} ${newbkslist[i]["prenom_auteur"]}",
                                                     int.parse(
                                                         "${newbkslist[i]["num_page"]}"),
-                                                    "${newbkslist[i]["description"]}",int.parse(
-                                                        "${newbkslist[i]["quant"]}")));
+                                                    "${newbkslist[i]["description"]}",
+                                                    int.parse(
+                                                        "${newbkslist[i]["quant"]}"),
+                                                    like!));
                                           },
                                           child: Container(
                                             margin: EdgeInsets.only(left: 10),
@@ -571,17 +650,52 @@ class _HomePagestate extends State<HomePage> {
                               customBorder: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              onTap: () {
+                              onTap: () async {
+                                bool? like;
+                                try {
+                                  showDialog(
+                                      barrierDismissible: false,
+                                      context: context,
+                                      builder: (context) {
+                                        return Center(
+                                            child: CircularProgressIndicator());
+                                      });
+                                  var url =
+                                      'https://intertarsal-surface.000webhostapp.com/favoris/checkFav.php';
+                                  var response =
+                                      await http.post(Uri.parse(url), body: {
+                                    'bookisbn3': "${_books[index]["ISBN"]}",
+                                    'userid3': prefs.getString("CNE"),
+                                  });
+
+                                  if (response.statusCode == 200) {
+                                    Navigator.of(context).pop();
+                                    if (response.body == "Y") {
+                                      setState(() {
+                                        like = true;
+                                      });
+                                    } else {
+                                      like = false;
+
+                                      setState(() {});
+                                    }
+                                  }
+                                } catch (e) {
+                                  print("error!");
+                                }
+
                                 Navigator.pushNamed(context, 'bookpage',
                                     arguments: BookArguments(
-                                        "${_books[index]['nom_livre']}",
+                                        "${_books[index]["ISBN"]}",
+                                        "${_books[index]["nom_livre"]}",
                                         "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${_books[index]["image_livre"]}",
-                                        "${_books[index]['cat_nom']}",
-                                        "${_books[index]['nom_auteur']}  ${_books[index]['prenom_auteur']}",
+                                        "${_books[index]["cat_nom"]}",
+                                        "${_books[index]["nom_auteur"]} ${_books[index]["prenom_auteur"]}",
                                         int.parse(
-                                            "${_books[index]['num_page']}"),
-                                        "${_books[index]['description']}",int.parse(
-                                                        "${_books[index]["quant"]}")));
+                                            "${_books[index]["num_page"]}"),
+                                        "${_books[index]["description"]}",
+                                        int.parse("${_books[index]["quant"]}"),
+                                        like!));
                               },
                               child: Row(
                                 children: [
