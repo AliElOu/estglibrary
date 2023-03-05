@@ -212,18 +212,72 @@ class _BookPageState extends State<BookPage> {
                               customBorder: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              onTap: () {
-                                if (book.qt == 0) {
-                                  AwesomeDialog(
-                                          context: context,
-                                          title: "Error !",
-                                          dialogType: DialogType.warning,
-                                          btnOkColor: Colors.amber,
-                                          btnOkOnPress: () {},
-                                          desc:
-                                              "ce livre n'est pas en stock en temps réel !")
-                                      .show();
-                                } else {}
+                              onTap: () async {
+                                try {
+                                  showDialog(
+                                      barrierDismissible: false,
+                                      context: context,
+                                      builder: (context) {
+                                        return Center(
+                                            child: CircularProgressIndicator());
+                                      });
+                                  var url =
+                                      'https://intertarsal-surface.000webhostapp.com/reservebook.php';
+                                  var response =
+                                      await http.post(Uri.parse(url), body: {
+                                    'isbn': book.isbn,
+                                    'cne': prefs.getString("CNE"),
+                                  });
+                                  if (response.statusCode == 200) {
+                                    Navigator.of(context).pop();
+                                    if (response.body == "\ndone") {
+                                      AwesomeDialog(
+                                        context: context,
+                                        title: "Succes",
+                                        body: Text(
+                                            "Vous avez réserver ce livre avec succes !"),
+                                        dialogBackgroundColor: Colors.white,
+                                        dialogType: DialogType.success,
+                                        btnOkOnPress: () {},
+                                        btnOkColor: Colors.green,
+                                      ).show();
+                                    } else if (response.body == "\nover") {
+                                      AwesomeDialog(
+                                        context: context,
+                                        title: "Attention",
+                                        body: Text(
+                                            "Vous n'avez pas le droit de réserver plus de 3 livres !"),
+                                        dialogBackgroundColor: Colors.white,
+                                        dialogType: DialogType.warning,
+                                        btnOkOnPress: () {},
+                                        btnOkColor: Colors.amber,
+                                      ).show();
+                                    } else if (response.body == "\nalready") {
+                                      AwesomeDialog(
+                                        context: context,
+                                        title: "Attention",
+                                        body: Text(
+                                            "Tu as déja reserver ce livre !"),
+                                        dialogBackgroundColor: Colors.white,
+                                        dialogType: DialogType.warning,
+                                        btnOkOnPress: () {},
+                                        btnOkColor: Colors.amber,
+                                      ).show();
+                                    } else if (response.body == "\nfailed") {
+                                      AwesomeDialog(
+                                        context: context,
+                                        title: "Error",
+                                        body: Text(
+                                            "Ce livre n'est pas en stock pour le moment !"),
+                                        dialogBackgroundColor: Colors.white,
+                                        dialogType: DialogType.error,
+                                        btnCancelOnPress: () {},
+                                        // btnOkOnPress: () {},
+                                      ).show();
+                                    }
+                                  }
+                                } catch (e) {}
+                                ;
                               },
                               child: Container(
                                 padding: EdgeInsets.all(10),

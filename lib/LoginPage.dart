@@ -281,6 +281,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           onPressed: () async {
+                            userdata.clear();
+
                             await login(myController1.text, myController2.text);
                           },
                           child: Text(
@@ -342,11 +344,28 @@ class _LoginScreenState extends State<LoginScreen> {
             prefs.setString("prenom", "${userdata[0]["prenom"]}");
             prefs.setString("filiere", "${userdata[0]["nom_fil"]}");
             prefs.setString("email", "${userdata[0]["email"]}");
-            prefs.setString("status_cmpt", "${userdata[0]["status_cmpt"]}");
+            //     prefs.setString("status_cmpt", "${userdata[0]["status_cmpt"]}");
             prefs.setString("pass", "${userdata[0]["pass"]}");
-
-            Navigator.of(context)
-                .pushNamedAndRemoveUntil('/', (route) => false);
+            print(
+                "================================================================");
+            print(userdata);
+            if (userdata[0]["status_cmpt"] == "0") {
+              AwesomeDialog(
+                context: context,
+                title: "Error",
+                body: Text(
+                  "Votre compte est suspendu par un administrateur!",
+                  textAlign: TextAlign.center,
+                ),
+                dialogBackgroundColor: Colors.white,
+                dialogType: DialogType.warning,
+                btnOkOnPress: () {},
+                btnOkColor: Colors.amber,
+              ).show();
+            } else {
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil('/', (route) => false);
+            }
           } else {
             AwesomeDialog(
               context: context,
