@@ -67,6 +67,7 @@ class _DemandesState extends State<Demandes> {
 
   @override
   Widget build(BuildContext context) {
+   print(prefs.getString("status_cmpt")) ;
     return Scaffold(
       appBar: AppBar(
         shadowColor: Colors.transparent,
@@ -81,16 +82,37 @@ class _DemandesState extends State<Demandes> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                      demandes.clear();
-                    },
-                    child: Icon(
-                      Icons.arrow_back_ios_new_rounded,
-                      size: 25,
-                      color: Colors.white,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                          demandes.clear();
+                        },
+                        child: Icon(
+                          Icons.arrow_back_ios_new_rounded,
+                          size: 25,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        size: 25,
+                        color: Colors.transparent,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, 'historique');
+                          demandes.clear();
+                        },
+                        child: Icon(
+                          Icons.history_outlined,
+                          size: 25,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 30),
                   Text(
@@ -351,7 +373,7 @@ class _DemandesState extends State<Demandes> {
                                                             height: 10,
                                                           ),
                                                           Text(
-                                                            "${demandes[i]["nom_auteur"]} ${demandes[i]["prenom_auteur"]}",
+                                                            "Date de Demande : \n${demandes[i]["date_demande"]}",
                                                             style: TextStyle(
                                                               fontSize: 15,
                                                               color: Colors
@@ -418,10 +440,10 @@ class _DemandesState extends State<Demandes> {
                                                             ),
                                                           ),
                                                           SizedBox(
-                                                            height: 10,
+                                                            height: 5,
                                                           ),
                                                           Text(
-                                                            "${demandes[i]["nom_auteur"]} ${demandes[i]["prenom_auteur"]}",
+                                                            "Date de réservation : \n${demandes[i]["date_res"]}",
                                                             style: TextStyle(
                                                               fontSize: 15,
                                                               color: Colors

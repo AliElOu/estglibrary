@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/BookPage.dart';
 import 'package:myapp/BookslistPage.dart';
 import 'package:myapp/CategoryPage.dart';
+import 'package:myapp/historique_book.dart';
 import 'package:myapp/profile/Favoris.dart';
 import 'package:myapp/Home_Screen.dart';
 import 'package:myapp/LoginPage.dart';
@@ -55,6 +56,7 @@ class MyApp extends StatelessWidget {
         "demandes": (context) => Demandes(),
         "favoris": (context) => Favoris(),
         "changepass": (context) => Change_password(),
+        "historique": (context) => historique_book(),
       },
     );
   }

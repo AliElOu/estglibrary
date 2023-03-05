@@ -213,6 +213,7 @@ class _BookPageState extends State<BookPage> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               onTap: () async {
+                                List userdata = [];
                                 try {
                                   showDialog(
                                       barrierDismissible: false,
@@ -222,62 +223,106 @@ class _BookPageState extends State<BookPage> {
                                             child: CircularProgressIndicator());
                                       });
                                   var url =
-                                      'https://intertarsal-surface.000webhostapp.com/reservebook.php';
-                                  var response =
+                                      'https://intertarsal-surface.000webhostapp.com/getuserdata.php';
+                                  var response2 =
                                       await http.post(Uri.parse(url), body: {
-                                    'isbn': book.isbn,
-                                    'cne': prefs.getString("CNE"),
+                                    'email': prefs.getString("email"),
                                   });
-                                  if (response.statusCode == 200) {
+                                  if (response2.statusCode == 200) {
                                     Navigator.of(context).pop();
-                                    if (response.body == "\ndone") {
-                                      AwesomeDialog(
-                                        context: context,
-                                        title: "Succes",
-                                        body: Text(
-                                            "Vous avez réserver ce livre avec succes !"),
-                                        dialogBackgroundColor: Colors.white,
-                                        dialogType: DialogType.success,
-                                        btnOkOnPress: () {},
-                                        btnOkColor: Colors.green,
-                                      ).show();
-                                    } else if (response.body == "\nover") {
-                                      AwesomeDialog(
-                                        context: context,
-                                        title: "Attention",
-                                        body: Text(
-                                            "Vous n'avez pas le droit de réserver plus de 3 livres !"),
-                                        dialogBackgroundColor: Colors.white,
-                                        dialogType: DialogType.warning,
-                                        btnOkOnPress: () {},
-                                        btnOkColor: Colors.amber,
-                                      ).show();
-                                    } else if (response.body == "\nalready") {
-                                      AwesomeDialog(
-                                        context: context,
-                                        title: "Attention",
-                                        body: Text(
-                                            "Tu as déja reserver ce livre !"),
-                                        dialogBackgroundColor: Colors.white,
-                                        dialogType: DialogType.warning,
-                                        btnOkOnPress: () {},
-                                        btnOkColor: Colors.amber,
-                                      ).show();
-                                    } else if (response.body == "\nfailed") {
-                                      AwesomeDialog(
-                                        context: context,
-                                        title: "Error",
-                                        body: Text(
-                                            "Ce livre n'est pas en stock pour le moment !"),
-                                        dialogBackgroundColor: Colors.white,
-                                        dialogType: DialogType.error,
-                                        btnCancelOnPress: () {},
-                                        // btnOkOnPress: () {},
-                                      ).show();
-                                    }
+
+                                    setState(() {
+                                      var red = json.decode((response2.body));
+                                      userdata.addAll(red);
+                                    });
                                   }
                                 } catch (e) {}
-                                ;
+                                if (userdata[0]["status_cmpt"] == "1") {
+                                  try {
+                                    showDialog(
+                                        barrierDismissible: false,
+                                        context: context,
+                                        builder: (context) {
+                                          return Center(
+                                              child:
+                                                  CircularProgressIndicator());
+                                        });
+                                    var url =
+                                        'https://intertarsal-surface.000webhostapp.com/reservebook.php';
+                                    var response =
+                                        await http.post(Uri.parse(url), body: {
+                                      'isbn': book.isbn,
+                                      'cne': prefs.getString("CNE"),
+                                    });
+                                    if (response.statusCode == 200) {
+                                      Navigator.of(context).pop();
+                                      if (response.body == "\ndone") {
+                                        AwesomeDialog(
+                                          context: context,
+                                          title: "Succes",
+                                          body: Text(
+                                            "Vous avez réserver ce livre avec succes !",
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          dialogBackgroundColor: Colors.white,
+                                          dialogType: DialogType.success,
+                                          btnOkOnPress: () {},
+                                          btnOkColor: Colors.green,
+                                        ).show();
+                                      } else if (response.body == "\nover") {
+                                        AwesomeDialog(
+                                          context: context,
+                                          title: "Attention",
+                                          body: Text(
+                                            "Vous n'avez pas le droit de réserver plus de 3 livres !",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(fontFamily: "os"),
+                                          ),
+                                          dialogBackgroundColor: Colors.white,
+                                          dialogType: DialogType.warning,
+                                          btnOkOnPress: () {},
+                                          btnOkColor: Colors.amber,
+                                        ).show();
+                                      } else if (response.body == "\nalready") {
+                                        AwesomeDialog(
+                                          context: context,
+                                          title: "Attention",
+                                          body: Text(
+                                              "Tu as déja reserver ce livre !"),
+                                          dialogBackgroundColor: Colors.white,
+                                          dialogType: DialogType.warning,
+                                          btnOkOnPress: () {},
+                                          btnOkColor: Colors.amber,
+                                        ).show();
+                                      } else if (response.body == "\nfailed") {
+                                        AwesomeDialog(
+                                          context: context,
+                                          title: "Error",
+                                          body: Text(
+                                              "Ce livre n'est pas en stock pour le moment !"),
+                                          dialogBackgroundColor: Colors.white,
+                                          dialogType: DialogType.error,
+                                          btnCancelOnPress: () {},
+                                          // btnOkOnPress: () {},
+                                        ).show();
+                                      }
+                                    }
+                                  } catch (e) {}
+                                  ;
+                                } else {
+                                  AwesomeDialog(
+                                    context: context,
+                                    title: "Error",
+                                    body: Text(
+                                      "Votre compte est suspendu par un administrateur!",
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    dialogBackgroundColor: Colors.white,
+                                    dialogType: DialogType.warning,
+                                    btnOkOnPress: () {},
+                                    btnOkColor: Colors.amber,
+                                  ).show();
+                                }
                               },
                               child: Container(
                                 padding: EdgeInsets.all(10),
