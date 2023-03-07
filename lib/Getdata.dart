@@ -23,7 +23,8 @@ class BookArguments {
     this.actor,
     this.nump,
     this.description,
-    this.qt,this.ck,
+    this.qt,
+    this.ck,
   );
 }
 
@@ -57,5 +58,13 @@ class User {
     this.email,
     this.cne,
     this.filliere,
+  );
+}
+
+class emailll {
+  final String mail;
+
+  emailll(
+    this.mail,
   );
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/BookPage.dart';
 import 'package:myapp/BookslistPage.dart';
 import 'package:myapp/CategoryPage.dart';
+import 'package:myapp/changepass2.dart';
 import 'package:myapp/historique_book.dart';
 import 'package:myapp/profile/Favoris.dart';
 import 'package:myapp/Home_Screen.dart';
@@ -13,7 +14,10 @@ import 'package:myapp/list_demandes.dart';
 import 'package:myapp/new_books.dart';
 import 'package:myapp/pop_book.dart';
 import 'package:myapp/profile/ProfilePage.dart';
+import 'package:myapp/verifycode.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'forget_password.dart';
 
 late SharedPreferences prefs;
 int? isFirstLaunch;
@@ -57,6 +61,9 @@ class MyApp extends StatelessWidget {
         "favoris": (context) => Favoris(),
         "changepass": (context) => Change_password(),
         "historique": (context) => historique_book(),
+        "forgetpass": (context) => forget_password(),
+        "verifycode": (context) => verifycode(),
+        "changepass2": (context) => change_password2(),
       },
     );
   }
