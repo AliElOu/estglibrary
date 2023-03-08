@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:myapp/Customnavbar.dart';
 import 'package:http/http.dart' as http;
 import 'package:myapp/main.dart';
@@ -63,6 +62,8 @@ class _HomePagestate extends State<HomePage> {
 
   @override
   void dispose() {
+    newbkslist.clear();
+    popbkslist.clear();
     super.dispose();
   }
 

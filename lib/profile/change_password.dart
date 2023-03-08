@@ -46,12 +46,15 @@ class _Change_passwordState extends State<Change_password> {
                     ),
                   ),
                   SizedBox(height: 30),
-                  Text(
-                    "Changer mot de passe : ",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      fontWeight: FontWeight.w500,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 13),
+                    child: Text(
+                      "Changer mot de passe : ",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ],
@@ -67,13 +70,13 @@ class _Change_passwordState extends State<Change_password> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                  height: 70,
+                  height: 130,
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(12.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: TextFormField(
                     style: TextStyle(color: Color(0xffBABCC1)),
                     obscureText: true,
@@ -129,10 +132,10 @@ class _Change_passwordState extends State<Change_password> {
                   ),
                 ),
                 SizedBox(
-                  height: 8,
+                  height: 16,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(12.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: TextFormField(
                     style: TextStyle(color: Color(0xffBABCC1)),
                     obscureText: true,
@@ -194,10 +197,10 @@ class _Change_passwordState extends State<Change_password> {
                   ),
                 ),
                 SizedBox(
-                  height: 8,
+                  height: 16,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(12.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: TextFormField(
                     style: TextStyle(color: Color(0xffBABCC1)),
                     obscureText: true,
@@ -256,85 +259,88 @@ class _Change_passwordState extends State<Change_password> {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 35,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        foregroundColor: Color.fromARGB(209, 255, 255, 255),
-                        backgroundColor: Color.fromARGB(136, 129, 58, 192),
-                        padding: EdgeInsets.symmetric(
-                          vertical: 20,
-                          horizontal: 40,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          foregroundColor: Color.fromARGB(209, 255, 255, 255),
+                          backgroundColor: Color.fromARGB(136, 129, 58, 192),
+                          padding: EdgeInsets.symmetric(
+                            vertical: 20,
+                            horizontal: 30,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(22),
+                          ),
                         ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(22),
-                        ),
-                      ),
-                      onPressed: () async {
-                        if (formKey.currentState!.validate()) {
-                          if (generateMd5(myController1.text) ==
-                              prefs.getString("pass")) {
-                            try {
-                              showDialog(
-                                  barrierDismissible: false,
-                                  context: context,
-                                  builder: (context) {
-                                    return Center(
-                                        child: CircularProgressIndicator());
-                                  });
-                              var url =
-                                  'https://intertarsal-surface.000webhostapp.com/changepass.php';
-                              var response = await http.post(Uri.parse(url),
-                                  body: {
-                                    'newpass': generateMd5(myController2.text),
-                                    'mail': prefs.getString('email')
-                                  });
-                              if (response.statusCode == 200) {
-                                Navigator.of(context).pop();
-                                AwesomeDialog(
-                                        context: context,
-                                        title: "Succes !",
-                                        dialogType: DialogType.success,
-                                        btnOkOnPress: () {},
-                                        desc:
-                                            "Le Mot de passe est modifié evec succes")
-                                    .show();
-                              }
-                            } catch (e) {}
-                            ;
-                          } else {
-                            AwesomeDialog(
+                        onPressed: () async {
+                          if (formKey.currentState!.validate()) {
+                            if (generateMd5(myController1.text) ==
+                                prefs.getString("pass")) {
+                              try {
+                                showDialog(
+                                    barrierDismissible: false,
                                     context: context,
-                                    title: "Error !",
-                                    dialogType: DialogType.error,
-                                    btnCancelOnPress: () {},
-                                    desc: "Mot de passe actuel eronné")
-                                .show();
+                                    builder: (context) {
+                                      return Center(
+                                          child: CircularProgressIndicator());
+                                    });
+                                var url =
+                                    'https://intertarsal-surface.000webhostapp.com/changepass.php';
+                                var response = await http
+                                    .post(Uri.parse(url), body: {
+                                  'newpass': generateMd5(myController2.text),
+                                  'mail': prefs.getString('email')
+                                });
+                                if (response.statusCode == 200) {
+                                  Navigator.of(context).pop();
+                                  AwesomeDialog(
+                                          context: context,
+                                          title: "Succes !",
+                                          dialogType: DialogType.success,
+                                          btnOkOnPress: () {},
+                                          desc:
+                                              "Le Mot de passe est modifié evec succes")
+                                      .show();
+                                }
+                              } catch (e) {}
+                              ;
+                            } else {
+                              AwesomeDialog(
+                                      context: context,
+                                      title: "Error !",
+                                      dialogType: DialogType.error,
+                                      btnCancelOnPress: () {},
+                                      desc: "Mot de passe actuel eronné")
+                                  .show();
+                            }
                           }
-                        }
-                      },
-                      child: Text(
-                        'Changer mot de passe',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontFamily: "os",
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
                         },
                         child: Text(
-                          "Cancel",
+                          'Changer mot de passe',
                           style: TextStyle(
-                              color: Color(0xffBABCC1), fontFamily: "os"),
-                        )),
-                    Container(),
-                  ],
+                            fontSize: 16,
+                            fontFamily: "os",
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(
+                                color: Color(0xffBABCC1), fontFamily: "os"),
+                          )),
+                      Container(),
+                    ],
+                  ),
                 ),
               ],
             ),

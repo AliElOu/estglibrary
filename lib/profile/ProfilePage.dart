@@ -149,7 +149,7 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 50,
+              height: 40,
             ),
             ProfileMenu(
               text: "Changer mot de passe",
@@ -222,7 +222,7 @@ class ProfileMenu extends StatelessWidget {
     return SizedBox(
       height: 80,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: EdgeInsets.symmetric(horizontal: 35, vertical: 10),
         child: Material(
           color: Color(0xff0F111D),
           borderRadius: BorderRadius.circular(10),
@@ -232,7 +232,7 @@ class ProfileMenu extends StatelessWidget {
             ),
             onTap: press,
             child: Container(
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
