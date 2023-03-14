@@ -5,8 +5,9 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 final PageController _pageController = PageController();
 final List<OnBoardModel> onBoardData = [
   const OnBoardModel(
-    title: "Set your own goals and get better",
-    description: "Goal support your motivation and inspire you to work harder",
+    title: "Bienvenue dans notre application de bibliothèque !",
+    description:
+        "Découvrez des dizaines de livres passionnants et trouvez votre prochaine lecture préférée",
     imgUrl: "assets/images/on1.jpg",
   ),
   const OnBoardModel(
@@ -29,6 +30,8 @@ class OnboardingPage extends StatefulWidget {
   @override
   _Onboardingscreenstate createState() => _Onboardingscreenstate();
 }
+
+bool isChecked = false;
 
 class _Onboardingscreenstate extends State<OnboardingPage> {
   int currentindex = 0;
@@ -55,11 +58,11 @@ class _Onboardingscreenstate extends State<OnboardingPage> {
             ),
             SizedBox(),
             Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Column(
                   children: [
                     Text(
-                      "Set your on goals and get better",
+                      "Bienvenue, ESTG bibliothèque !",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color(0xffC4C4D6),
@@ -72,7 +75,7 @@ class _Onboardingscreenstate extends State<OnboardingPage> {
                       height: 15,
                     ),
                     Text(
-                      "Goal support your motivation and inspire you to work harder",
+                      "Découvrez des dizaines de livres passionnants et trouvez votre prochaine lecture préférée",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 16,
@@ -96,11 +99,11 @@ class _Onboardingscreenstate extends State<OnboardingPage> {
             ),
             SizedBox(),
             Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40),
+                padding: const EdgeInsets.symmetric(horizontal: 35),
                 child: Column(
                   children: [
                     Text(
-                      "Set your on goals and get better",
+                      "Simple et facile à utiliser !",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color(0xffC4C4D6),
@@ -113,7 +116,7 @@ class _Onboardingscreenstate extends State<OnboardingPage> {
                       height: 15,
                     ),
                     Text(
-                      "Goal support your motivation and inspire you to work harder",
+                      "Explorez notre catalogue pour découvrir plusieurs livres de différentes catégories.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 16,
@@ -143,7 +146,7 @@ class _Onboardingscreenstate extends State<OnboardingPage> {
                 child: Column(
                   children: [
                     Text(
-                      "Set your on goals and get better",
+                      "Nous sommes ravis de vous aider à cultiver votre amour de la lecture",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color(0xffC4C4D6),
@@ -156,7 +159,7 @@ class _Onboardingscreenstate extends State<OnboardingPage> {
                       height: 15,
                     ),
                     Text(
-                      "Goal support your motivation and inspire you to work harder",
+                      "Avec notre application, vous pouvez facilement emprunter et lire des livres",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 16,
@@ -168,68 +171,78 @@ class _Onboardingscreenstate extends State<OnboardingPage> {
           ],
         ),
       ),
-    ];
-
-    return Scaffold(
-      /* backgroundColor: Colors.white,
-      body: OnBoard(
-        onBoardData: onBoardData,
-        titleStyles: const TextStyle(
-          color: Colors.deepOrange,
-          fontSize: 18,
-          fontWeight: FontWeight.w900,
-          letterSpacing: 0.15,
-        ),
-        descriptionStyles: TextStyle(
-          fontSize: 16,
-          color: Colors.brown.shade300,
-        ),
-        pageIndicatorStyle: const PageIndicatorStyle(
-          width: 100,
-          inactiveColor: Colors.deepOrangeAccent,
-          activeColor: Colors.deepOrange,
-          inactiveSize: Size(8, 8),
-          activeSize: Size(12, 12),
-        ),
-        pageController: _pageController,
-        onSkip: () {
-          Navigator.pushNamed(context, 'loginpage');
-        },
-        onDone: () {
-          Navigator.pushNamed(context, 'loginpage');
-        },
-        nextButton: OnBoardConsumer(
-          builder: (context, ref, child) {
-            final state = ref.watch(onBoardStateProvider);
-            return InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, 'loginpage');
-              },
-              child: Container(
-                width: 230,
-                height: 50,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  gradient: const LinearGradient(
-                    colors: [Colors.redAccent, Colors.deepOrangeAccent],
-                  ),
-                ),
-                child: Text(
-                  state.isLastPage ? "Done" : "Next",
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+      Container(
+        child: Column(
+          children: [
+            Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 45,
+                    ),
+                    Text(
+                      "Termes & conditions",
+                      style: TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontFamily: "Lato"),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      """- Pour créer un compte veuillez contactez le résponsable de la bibliothèque (Seulement pour les étudiants de l'ESTG).\n
+- Vous pouvez réserver moins de trois livres.
+- Après avoir réserver un livre, il faut aller le chercher à la bibliothèque.
+- Un livre emprunté doit être rendu en moins de sept jours.\n
+- La page des demandes présente la liste des livres demandés qui n'ont pas encore reçu de réponse par l’administrateur, et aussi les livres empruntés qui n'ont pas encore été rendus, avec leurs dates de réservation.
+- La page d’historique présente tous l’historique des réservations effectuées par un utilisateur sur l'application.\n
+-Toute demande non examinée dans les 24 heures par l'administrateur sera supprimée automatiquement.
+""",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        color: Color.fromARGB(228, 196, 196, 214),
+                        fontSize: 14,
+                        letterSpacing: 0.15,
+                      ),
+                    ),
+                  ],
+                )),
+            SizedBox(
+              height: 2,
+            ),
+            Text(
+              "*Veuillez respecter les termes pour éviter les Pénalités",
+              style: TextStyle(
+                color: Colors.red,
+                fontSize: 12,
+                letterSpacing: 0.15,
               ),
-            );
-          },
+              textAlign: TextAlign.left,
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 40),
+              child: Row(
+                children: [
+                  StatefulCheckBox(),
+                  Text(
+                    "J'ai lu et j'accepte les termes et conditions",
+                    style: TextStyle(
+                      color: Color.fromARGB(228, 196, 196, 214),
+                      fontSize: 12,
+                      letterSpacing: 0.15,
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
         ),
-      ),
-    );
-  }   */
-
+      )
+    ];
+    return Scaffold(
       backgroundColor: Color(0xff2F2E47),
       body: SafeArea(
         child: Padding(
@@ -245,10 +258,11 @@ class _Onboardingscreenstate extends State<OnboardingPage> {
                       "a",
                       style: TextStyle(color: Color.fromARGB(0, 255, 255, 255)),
                     ),
-                    InkWell(
-                      highlightColor: Color.fromARGB(0, 0, 0, 0),
+                    GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, 'loginpage');
+                        if (currentindex != cc.length - 1) {
+                          controllerr.jumpToPage(4);
+                        }
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -257,12 +271,19 @@ class _Onboardingscreenstate extends State<OnboardingPage> {
                         height: 25,
                         width: 50,
                         child: Center(
-                          child: Text(
-                            "Skip",
-                            style: TextStyle(
-                                color: Color(0xffC4C4D6),
-                                fontWeight: FontWeight.w500),
-                          ),
+                          child: currentindex != cc.length - 1
+                              ? Text(
+                                  "Passer",
+                                  style: TextStyle(
+                                      color: Color(0xffC4C4D6),
+                                      fontWeight: FontWeight.w500),
+                                )
+                              : Text(
+                                  "Passer",
+                                  style: TextStyle(
+                                      color: Color.fromARGB(0, 255, 255, 255),
+                                      fontWeight: FontWeight.w500),
+                                ),
                         ),
                       ),
                     ),
@@ -300,12 +321,12 @@ class _Onboardingscreenstate extends State<OnboardingPage> {
                         effect: SwapEffect(
                           activeDotColor: Color.fromARGB(136, 129, 58, 192),
                           dotColor: Color.fromARGB(255, 104, 104, 117),
-                          spacing: 20,
+                          spacing: 16,
                           dotHeight: 9,
                           dotWidth: 9,
                         ),
                         controller: controllerr,
-                        count: 3,
+                        count: 4,
                       ),
                     ),
                   ],
@@ -326,16 +347,18 @@ class _Onboardingscreenstate extends State<OnboardingPage> {
                       ),
                     ),
                     onPressed: () {
-                      if (currentindex == cc.length - 1) {
+                      if (currentindex == cc.length - 1 && isChecked != false) {
                         Navigator.pushNamed(context, 'loginpage');
                       }
-                      controllerr.nextPage(
-                          duration: Duration(milliseconds: 700),
-                          curve: Curves.ease);
+                      if (currentindex != cc.length - 1) {
+                        controllerr.nextPage(
+                            duration: Duration(milliseconds: 700),
+                            curve: Curves.ease);
+                      }
                     },
                     child: currentindex != cc.length - 1
                         ? Text(
-                            'Next',
+                            'Suivant',
                             style: TextStyle(
                               fontFamily: "os",
                               fontSize: 16,
@@ -343,7 +366,7 @@ class _Onboardingscreenstate extends State<OnboardingPage> {
                             ),
                           )
                         : Text(
-                            'Continue',
+                            'Continuer',
                             style: TextStyle(
                               fontFamily: "os",
                               fontSize: 16,
@@ -359,8 +382,32 @@ class _Onboardingscreenstate extends State<OnboardingPage> {
       ),
     );
   }
+}
 
-  void salama() {
-    print('salam');
+class StatefulCheckBox extends StatefulWidget {
+  const StatefulCheckBox({super.key});
+
+  @override
+  State<StatefulCheckBox> createState() => _StatefulCheckBoxState();
+}
+
+class _StatefulCheckBoxState extends State<StatefulCheckBox> {
+  @override
+  Widget build(BuildContext context) {
+    return Checkbox(
+        value: isChecked,
+        onChanged: changeCheckboxState,
+        fillColor: MaterialStateProperty.resolveWith<Color>(
+            (Set<MaterialState> states) {
+          if (states.contains(MaterialState.disabled)) {
+            return Color.fromARGB(135, 255, 255, 255);
+          }
+          return Color.fromARGB(136, 129, 58, 192);
+        }));
+  }
+
+  void changeCheckboxState(bool? value) {
+    isChecked = value!;
+    setState(() {});
   }
 }

@@ -21,7 +21,7 @@ class _HomePagestate extends State<HomePage> {
   List popbkslist = [];
 
   Future getpopBooks() async {
-    var url = "https://intertarsal-surface.000webhostapp.com/getBooks.php";
+    var url = "https://intertarsal-surface.000webhostapp.com/getpopBooks.php";
     var res;
     try {
       res = await http.get(Uri.parse(url));
@@ -54,7 +54,6 @@ class _HomePagestate extends State<HomePage> {
 
   @override
   void initState() {
-    _handleRefresh();
     getpopBooks();
     getnewBooks();
     super.initState();
@@ -223,7 +222,7 @@ class _HomePagestate extends State<HomePage> {
                       ),
                     ],
                   ),
-                  InkWell(
+                  GestureDetector(
                     onTap: () {
                       Navigator.pushNamed(context, "profilepage");
                     },
@@ -273,6 +272,12 @@ class _HomePagestate extends State<HomePage> {
                     onFieldSubmitted: (value) async {
                       dynamic response;
                       try {
+                        showDialog(
+                            barrierDismissible: false,
+                            context: context,
+                            builder: (context) {
+                              return Center(child: CircularProgressIndicator());
+                            });
                         response = value.isEmpty
                             ? await http.get(Uri.parse(
                                 "https://intertarsal-surface.000webhostapp.com/getBooks.php"))
@@ -283,6 +288,8 @@ class _HomePagestate extends State<HomePage> {
                       }
                       try {
                         if (response.statusCode == 200) {
+                          Navigator.of(context).pop();
+
                           final data = json.decode(response.body);
                           setState(() {
                             valuesearch = value;
@@ -631,124 +638,118 @@ class _HomePagestate extends State<HomePage> {
                 ),
               ),
             )
-          : _books.isEmpty
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : SafeArea(
-                  child: SingleChildScrollView(
-                    physics: BouncingScrollPhysics(),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 10,
-                        ),
-                        for (int index = 0; index < _books.length; index++)
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 30, vertical: 6),
-                            child: InkWell(
-                              customBorder: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              onTap: () async {
-                                bool? like;
-                                try {
-                                  showDialog(
-                                      barrierDismissible: false,
-                                      context: context,
-                                      builder: (context) {
-                                        return Center(
-                                            child: CircularProgressIndicator());
-                                      });
-                                  var url =
-                                      'https://intertarsal-surface.000webhostapp.com/favoris/checkFav.php';
-                                  var response =
-                                      await http.post(Uri.parse(url), body: {
-                                    'bookisbn3': "${_books[index]["ISBN"]}",
-                                    'userid3': prefs.getString("CNE"),
+          : SafeArea(
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 10,
+                    ),
+                    for (int index = 0; index < _books.length; index++)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 30, vertical: 6),
+                        child: InkWell(
+                          customBorder: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          onTap: () async {
+                            bool? like;
+                            try {
+                              showDialog(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (context) {
+                                    return Center(
+                                        child: CircularProgressIndicator());
                                   });
+                              var url =
+                                  'https://intertarsal-surface.000webhostapp.com/favoris/checkFav.php';
+                              var response =
+                                  await http.post(Uri.parse(url), body: {
+                                'bookisbn3': "${_books[index]["ISBN"]}",
+                                'userid3': prefs.getString("CNE"),
+                              });
 
-                                  if (response.statusCode == 200) {
-                                    Navigator.of(context).pop();
-                                    if (response.body == "Y") {
-                                      setState(() {
-                                        like = true;
-                                      });
-                                    } else {
-                                      like = false;
+                              if (response.statusCode == 200) {
+                                Navigator.of(context).pop();
+                                if (response.body == "Y") {
+                                  setState(() {
+                                    like = true;
+                                  });
+                                } else {
+                                  like = false;
 
-                                      setState(() {});
-                                    }
-                                  }
-                                } catch (e) {
-                                  print("error!");
+                                  setState(() {});
                                 }
+                              }
+                            } catch (e) {
+                              print("error!");
+                            }
 
-                                Navigator.pushNamed(context, 'bookpage',
-                                    arguments: BookArguments(
-                                        "${_books[index]["ISBN"]}",
-                                        "${_books[index]["nom_livre"]}",
-                                        "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${_books[index]["image_livre"]}",
-                                        "${_books[index]["cat_nom"]}",
-                                        "${_books[index]["nom_auteur"]} ${_books[index]["prenom_auteur"]}",
-                                        int.parse(
-                                            "${_books[index]["num_page"]}"),
-                                        "${_books[index]["description"]}",
-                                        int.parse("${_books[index]["quant"]}"),
-                                        like!));
-                              },
-                              child: Row(
+                            Navigator.pushNamed(context, 'bookpage',
+                                arguments: BookArguments(
+                                    "${_books[index]["ISBN"]}",
+                                    "${_books[index]["nom_livre"]}",
+                                    "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${_books[index]["image_livre"]}",
+                                    "${_books[index]["cat_nom"]}",
+                                    "${_books[index]["nom_auteur"]} ${_books[index]["prenom_auteur"]}",
+                                    int.parse("${_books[index]["num_page"]}"),
+                                    "${_books[index]["description"]}",
+                                    int.parse("${_books[index]["quant"]}"),
+                                    like!));
+                          },
+                          child: Row(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.network(
+                                  "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${_books[index]["image_livre"]}",
+                                  width: 75,
+                                  height: 100,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Image.network(
-                                      "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${_books[index]["image_livre"]}",
-                                      width: 75,
-                                      height: 100,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
+                                  Text("${_books[index]['nom_livre']}",
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.white,
+                                      )),
                                   SizedBox(
-                                    width: 10,
+                                    height: 5,
                                   ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text("${_books[index]['nom_livre']}",
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.white,
-                                          )),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                          "${_books[index]['nom_auteur']} ${_books[index]['prenom_auteur']}",
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            color: Colors.grey,
-                                          )),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text("${_books[index]['cat_nom']}",
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            color: Color.fromARGB(
-                                                103, 255, 255, 255),
-                                          )),
-                                    ],
+                                  Text(
+                                      "${_books[index]['nom_auteur']} ${_books[index]['prenom_auteur']}",
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.grey,
+                                      )),
+                                  SizedBox(
+                                    height: 5,
                                   ),
+                                  Text("${_books[index]['cat_nom']}",
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color:
+                                            Color.fromARGB(103, 255, 255, 255),
+                                      )),
                                 ],
                               ),
-                            ),
+                            ],
                           ),
-                      ],
-                    ),
-                  ),
+                        ),
+                      ),
+                  ],
                 ),
+              ),
+            ),
       bottomNavigationBar: Customnavbar(),
     );
   }

@@ -32,7 +32,6 @@ class _CategoryPageState extends State<CategoryPage> {
 
     try {
       res = await http.get(Uri.parse(url));
-
       if (res.statusCode == 200) {
         setState(() {
           var red = json.decode((res.body));
@@ -50,24 +49,7 @@ class _CategoryPageState extends State<CategoryPage> {
   }
 
   List ctgbkslist = [];
-  String a = "";
-  Future getlistbooks(String a) async {
-    var url =
-        "https://intertarsal-surface.000webhostapp.com/getCategoriesBooks.php?cat=\"$a\"";
-    var res;
-    try {
-      res = await http.get(Uri.parse(url));
-    } catch (e) {
-      print(e);
-    }
 
-    if (res.statusCode == 200) {
-      setState(() {
-        var red = json.decode((res.body));
-        ctgbkslist.addAll(red);
-      });
-    }
-  }
 
   @override
   void initState() {
