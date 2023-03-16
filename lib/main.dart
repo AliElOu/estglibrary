@@ -14,6 +14,7 @@ import 'package:myapp/list_demandes.dart';
 import 'package:myapp/new_books.dart';
 import 'package:myapp/pop_book.dart';
 import 'package:myapp/profile/ProfilePage.dart';
+import 'package:myapp/termspage.dart';
 import 'package:myapp/verifycode.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
       initialRoute: (isFirstLaunch == 0 || isFirstLaunch == null)
           ? "onboardingpage"
           : prefs.getString("email") == null
-              ? "loginpage"
+              ? "termspage"
               : "/",
       routes: {
         "loginpage": (context) => const LoginScreen(),
@@ -64,6 +65,7 @@ class MyApp extends StatelessWidget {
         "forgetpass": (context) => forget_password(),
         "verifycode": (context) => verifycode(),
         "changepass2": (context) => change_password2(),
+        "termspage": (context) => termspage(),
       },
     );
   }

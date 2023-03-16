@@ -101,7 +101,7 @@ class _verifycodeState extends State<verifycode> {
                 Padding(
                   padding: EdgeInsets.only(right: 110),
                   child: Text(
-                    "Veuillez entrer le code envoyé à : \n alielouankrimi@gmail.com ",
+                    "Veuillez entrer le code envoyé à : \n ${mm.mail} ",
                     style: TextStyle(color: Colors.white54, fontSize: 14.5),
                   ),
                 ),

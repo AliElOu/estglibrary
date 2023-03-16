@@ -3,26 +3,6 @@ import 'package:flutter_onboard/flutter_onboard.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 final PageController _pageController = PageController();
-final List<OnBoardModel> onBoardData = [
-  const OnBoardModel(
-    title: "Bienvenue dans notre application de bibliothèque !",
-    description:
-        "Découvrez des dizaines de livres passionnants et trouvez votre prochaine lecture préférée",
-    imgUrl: "assets/images/on1.jpg",
-  ),
-  const OnBoardModel(
-    title: "Track your progress with statistics",
-    description:
-        "Analyse personal result with detailed chart and numerical values",
-    imgUrl: 'assets/images/on2.jpg',
-  ),
-  const OnBoardModel(
-    title: "Create photo comparisons and share your results",
-    description:
-        "Take before and after photos to visualize progress and get the shape that you dream about",
-    imgUrl: 'assets/images/on3.jpg',
-  ),
-];
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
@@ -171,76 +151,6 @@ class _Onboardingscreenstate extends State<OnboardingPage> {
           ],
         ),
       ),
-      Container(
-        child: Column(
-          children: [
-            Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 45,
-                    ),
-                    Text(
-                      "Termes & conditions",
-                      style: TextStyle(
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontFamily: "Lato"),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      """- Pour créer un compte veuillez contactez le résponsable de la bibliothèque (Seulement pour les étudiants de l'ESTG).\n
-- Vous pouvez réserver moins de trois livres.
-- Après avoir réserver un livre, il faut aller le chercher à la bibliothèque.
-- Un livre emprunté doit être rendu en moins de sept jours.\n
-- La page des demandes présente la liste des livres demandés qui n'ont pas encore reçu de réponse par l’administrateur, et aussi les livres empruntés qui n'ont pas encore été rendus, avec leurs dates de réservation.
-- La page d’historique présente tous l’historique des réservations effectuées par un utilisateur sur l'application.\n
--Toute demande non examinée dans les 24 heures par l'administrateur sera supprimée automatiquement.
-""",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: Color.fromARGB(228, 196, 196, 214),
-                        fontSize: 14,
-                        letterSpacing: 0.15,
-                      ),
-                    ),
-                  ],
-                )),
-            SizedBox(
-              height: 2,
-            ),
-            Text(
-              "*Veuillez respecter les termes pour éviter les Pénalités",
-              style: TextStyle(
-                color: Colors.red,
-                fontSize: 12,
-                letterSpacing: 0.15,
-              ),
-              textAlign: TextAlign.left,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 40),
-              child: Row(
-                children: [
-                  StatefulCheckBox(),
-                  Text(
-                    "J'ai lu et j'accepte les termes et conditions",
-                    style: TextStyle(
-                      color: Color.fromARGB(228, 196, 196, 214),
-                      fontSize: 12,
-                      letterSpacing: 0.15,
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
-      )
     ];
     return Scaffold(
       backgroundColor: Color(0xff2F2E47),
@@ -260,9 +170,7 @@ class _Onboardingscreenstate extends State<OnboardingPage> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        if (currentindex != cc.length - 1) {
-                          controllerr.jumpToPage(4);
-                        }
+                        Navigator.pushNamed(context, 'termspage');
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -271,20 +179,12 @@ class _Onboardingscreenstate extends State<OnboardingPage> {
                         height: 25,
                         width: 50,
                         child: Center(
-                          child: currentindex != cc.length - 1
-                              ? Text(
-                                  "Passer",
-                                  style: TextStyle(
-                                      color: Color(0xffC4C4D6),
-                                      fontWeight: FontWeight.w500),
-                                )
-                              : Text(
-                                  "Passer",
-                                  style: TextStyle(
-                                      color: Color.fromARGB(0, 255, 255, 255),
-                                      fontWeight: FontWeight.w500),
-                                ),
-                        ),
+                            child: Text(
+                          "Passer",
+                          style: TextStyle(
+                              color: Color(0xffC4C4D6),
+                              fontWeight: FontWeight.w500),
+                        )),
                       ),
                     ),
                   ],
@@ -326,7 +226,7 @@ class _Onboardingscreenstate extends State<OnboardingPage> {
                           dotWidth: 9,
                         ),
                         controller: controllerr,
-                        count: 4,
+                        count: 3,
                       ),
                     ),
                   ],
@@ -347,8 +247,8 @@ class _Onboardingscreenstate extends State<OnboardingPage> {
                       ),
                     ),
                     onPressed: () {
-                      if (currentindex == cc.length - 1 && isChecked != false) {
-                        Navigator.pushNamed(context, 'loginpage');
+                      if (currentindex == cc.length - 1) {
+                        Navigator.pushNamed(context, 'termspage');
                       }
                       if (currentindex != cc.length - 1) {
                         controllerr.nextPage(

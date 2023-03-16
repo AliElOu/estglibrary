@@ -283,21 +283,23 @@ class _HomePagestate extends State<HomePage> {
                                 "https://intertarsal-surface.000webhostapp.com/getBooks.php"))
                             : await http.get(Uri.parse(
                                 "https://intertarsal-surface.000webhostapp.com/getBooks.php?$sel=\"$value\""));
-                      } catch (e) {
-                        error_book("Error de connection !");
-                      }
-                      try {
-                        if (response.statusCode == 200) {
-                          Navigator.of(context).pop();
+                        try {
+                          if (response.statusCode == 200) {
+                            Navigator.of(context).pop();
 
-                          final data = json.decode(response.body);
-                          setState(() {
-                            valuesearch = value;
-                            _books = data;
-                          });
+                            final data = json.decode(response.body);
+                            setState(() {
+                              valuesearch = value;
+                              _books = data;
+                            });
+                          }
+                        } catch (e) {
+                          error_book("pas de livre !");
                         }
                       } catch (e) {
-                        error_book("pas de livre !");
+                        Navigator.of(context).pop();
+
+                        error_book("Error de connection !");
                       }
                     }),
               ),
