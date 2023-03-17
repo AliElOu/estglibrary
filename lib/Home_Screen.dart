@@ -374,7 +374,7 @@ class _HomePagestate extends State<HomePage> {
                                               borderRadius:
                                                   BorderRadius.circular(15),
                                               child: Image.network(
-                                                "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${popbkslist[i]["image_livre"]}",
+                                                "https://intertarsal-surface.000webhostapp.com/library1/bookimg/${popbkslist[i]["image_livre"]}",
                                                 height: 180,
                                                 width: 120,
                                                 fit: BoxFit.cover,
@@ -423,7 +423,7 @@ class _HomePagestate extends State<HomePage> {
                                                 arguments: BookArguments(
                                                     "${popbkslist[i]["ISBN"]}",
                                                     "${popbkslist[i]["nom_livre"]}",
-                                                    "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${popbkslist[i]["image_livre"]}",
+                                                    "https://intertarsal-surface.000webhostapp.com/library1/bookimg/${popbkslist[i]["image_livre"]}",
                                                     "${popbkslist[i]["cat_nom"]}",
                                                     "${popbkslist[i]["nom_auteur"]} ${popbkslist[i]["prenom_auteur"]}",
                                                     int.parse(
@@ -534,7 +534,7 @@ class _HomePagestate extends State<HomePage> {
                                                 arguments: BookArguments(
                                                     "${newbkslist[i]["ISBN"]}",
                                                     "${newbkslist[i]["nom_livre"]}",
-                                                    "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${newbkslist[i]["image_livre"]}",
+                                                    "https://intertarsal-surface.000webhostapp.com/library1/bookimg/${newbkslist[i]["image_livre"]}",
                                                     "${newbkslist[i]["cat_nom"]}",
                                                     "${newbkslist[i]["nom_auteur"]} ${newbkslist[i]["prenom_auteur"]}",
                                                     int.parse(
@@ -573,7 +573,7 @@ class _HomePagestate extends State<HomePage> {
                                                         Radius.circular(10),
                                                   ),
                                                   child: Image.network(
-                                                    "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${newbkslist[i]["image_livre"]}",
+                                                    "https://intertarsal-surface.000webhostapp.com/library1/bookimg/${newbkslist[i]["image_livre"]}",
                                                     height: 200,
                                                     width: 200,
                                                     fit: BoxFit.cover,
@@ -694,7 +694,7 @@ class _HomePagestate extends State<HomePage> {
                                 arguments: BookArguments(
                                     "${_books[index]["ISBN"]}",
                                     "${_books[index]["nom_livre"]}",
-                                    "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${_books[index]["image_livre"]}",
+                                    "https://intertarsal-surface.000webhostapp.com/library1/bookimg/${_books[index]["image_livre"]}",
                                     "${_books[index]["cat_nom"]}",
                                     "${_books[index]["nom_auteur"]} ${_books[index]["prenom_auteur"]}",
                                     int.parse("${_books[index]["num_page"]}"),
@@ -707,7 +707,7 @@ class _HomePagestate extends State<HomePage> {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image.network(
-                                  "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${_books[index]["image_livre"]}",
+                                  "https://intertarsal-surface.000webhostapp.com/library1/bookimg/${_books[index]["image_livre"]}",
                                   width: 75,
                                   height: 100,
                                   fit: BoxFit.cover,

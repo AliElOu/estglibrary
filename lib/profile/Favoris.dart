@@ -191,7 +191,7 @@ class _FavorisState extends State<Favoris> {
                                             arguments: BookArguments(
                                                 "${favoris[i]["ISBN"]}",
                                                 "${favoris[i]["nom_livre"]}",
-                                                "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${favoris[i]["image_livre"]}",
+                                                "https://intertarsal-surface.000webhostapp.com/library1/bookimg/${favoris[i]["image_livre"]}",
                                                 "${favoris[i]["cat_nom"]}",
                                                 "${favoris[i]["nom_auteur"]} ${favoris[i]["prenom_auteur"]}",
                                                 int.parse(
@@ -224,7 +224,7 @@ class _FavorisState extends State<Favoris> {
                                                               Radius.circular(
                                                                   10)),
                                                   child: Image.network(
-                                                    "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${favoris[i]["image_livre"]}",
+                                                    "https://intertarsal-surface.000webhostapp.com/library1/bookimg/${favoris[i]["image_livre"]}",
                                                     fit: BoxFit.cover,
                                                     height: 90,
                                                   ),

@@ -162,7 +162,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(10),
                                     child: Image.network(
-                                      "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${ctglist[i]["image_cat"]}",
+                                      "https://intertarsal-surface.000webhostapp.com/library1/categorie/catimg/${ctglist[i]["image_cat"]}",
                                       width: 90,
                                       height: 70,
                                       fit: BoxFit.cover,

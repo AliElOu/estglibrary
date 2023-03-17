@@ -108,7 +108,7 @@ class _BookslistPageState extends State<BookslistPage> {
                     arguments: BookArguments(
                         "${aa[index]["ISBN"]}",
                         "${aa[index]["nom_livre"]}",
-                        "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${aa[index]["image_livre"]}",
+                        "https://intertarsal-surface.000webhostapp.com/library1/bookimg/${aa[index]["image_livre"]}",
                         "${aa[index]["cat_nom"]}",
                         "${aa[index]["nom_auteur"]} ${aa[index]["prenom_auteur"]}",
                         int.parse("${aa[index]["num_page"]}"),
@@ -139,7 +139,7 @@ class _BookslistPageState extends State<BookslistPage> {
                         topRight: Radius.circular(10),
                       ),
                       child: Image.network(
-                        "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${aa[index]["image_livre"]}",
+                        "https://intertarsal-surface.000webhostapp.com/library1/bookimg/${aa[index]["image_livre"]}",
                         height: 200,
                         width: 200,
                         fit: BoxFit.cover,

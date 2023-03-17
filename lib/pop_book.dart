@@ -163,7 +163,7 @@ class _Pop_bookState extends State<Pop_book>
                                                 arguments: BookArguments(
                                                     "${popbooks[index]["ISBN"]}",
                                                     "${popbooks[index]["nom_livre"]}",
-                                                    "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${popbooks[index]["image_livre"]}",
+                                                    "https://intertarsal-surface.000webhostapp.com/library1/bookimg/${popbooks[index]["image_livre"]}",
                                                     "${popbooks[index]["cat_nom"]}",
                                                     "${popbooks[index]["nom_auteur"]} ${popbooks[index]["prenom_auteur"]}",
                                                     int.parse(
@@ -195,7 +195,7 @@ class _Pop_bookState extends State<Pop_book>
                                   topRight: Radius.circular(10),
                                 ),
                                 child: Image.network(
-                                  "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${popbooks[index]["image_livre"]}",
+                                  "https://intertarsal-surface.000webhostapp.com/library1/bookimg/${popbooks[index]["image_livre"]}",
                                   height: 200,
                                   width: 200,
                                   fit: BoxFit.cover,

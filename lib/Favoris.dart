@@ -125,7 +125,7 @@ class _FavorisState extends State<Favoris> {
                               auteur:
                                   "${favoris[i]["nom_auteur"]} ${favoris[i]["prenom_auteur"]}",
                               image:
-                                  "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${favoris[i]["image_livre"]}")
+                                  "https://intertarsal-surface.000webhostapp.com/library1/bookimg/${favoris[i]["image_livre"]}")
                       ],
                     ),
                   ),

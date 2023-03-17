@@ -161,7 +161,7 @@ class _New_booksState extends State<New_books>
                                                 arguments: BookArguments(
                                                     "${newbooks[index]["ISBN"]}",
                                                     "${newbooks[index]["nom_livre"]}",
-                                                    "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${newbooks[index]["image_livre"]}",
+                                                    "https://intertarsal-surface.000webhostapp.com/library1/bookimg/${newbooks[index]["image_livre"]}",
                                                     "${newbooks[index]["cat_nom"]}",
                                                     "${newbooks[index]["nom_auteur"]} ${newbooks[index]["prenom_auteur"]}",
                                                     int.parse(
@@ -193,7 +193,7 @@ class _New_booksState extends State<New_books>
                                   topRight: Radius.circular(10),
                                 ),
                                 child: Image.network(
-                                  "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${newbooks[index]["image_livre"]}",
+                                  "https://intertarsal-surface.000webhostapp.com/library1/bookimg/${newbooks[index]["image_livre"]}",
                                   height: 200,
                                   width: 200,
                                   fit: BoxFit.cover,

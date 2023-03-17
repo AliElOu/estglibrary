@@ -349,7 +349,7 @@ class _DemandesState extends State<Demandes> {
                                                                         10)),
                                                             child:
                                                                 Image.network(
-                                                              "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${demandes[i]["image_livre"]}",
+                                                              "https://intertarsal-surface.000webhostapp.com/library1/bookimg/${demandes[i]["image_livre"]}",
                                                               fit: BoxFit.cover,
                                                               height: 90,
                                                             ),
@@ -419,7 +419,7 @@ class _DemandesState extends State<Demandes> {
                                                                         10)),
                                                             child:
                                                                 Image.network(
-                                                              "https://intertarsal-surface.000webhostapp.com/library1/admin/bookimg/${demandes[i]["image_livre"]}",
+                                                              "https://intertarsal-surface.000webhostapp.com/library1/bookimg/${demandes[i]["image_livre"]}",
                                                               fit: BoxFit.cover,
                                                               height: 90,
                                                             ),
